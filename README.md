@@ -1,1 +1,1 @@
-# attendify
+# Attendify : Attendance Simplify
