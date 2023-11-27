@@ -18,15 +18,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    title='Attendify.'
+    return render_template('index.html',title=title)
 
 @app.route('/dashboard/')
 def dashboard():
-    return render_template('dashboard.html')
+    title = 'Dashboard'
+    return render_template('dashboard.html',title=title)
 
 @app.route('/tim/')
 def tim():
-    return render_template('tim.html')
+    title = 'Tim'
+    return render_template('tim.html',title=title)
 
 
 nimgs = 10
@@ -176,24 +179,27 @@ def deletefolder(duser):
 # main page
 @app.route('/absen/')
 def absen():
+    title = 'Absensi'
     names, rolls, times, l = extract_attendance()
     formatted_date, day, now = get_date_and_day() 
-    return render_template('absen.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2, now=now, day=day)
+    return render_template('absen.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2, now=now, day=day, title=title)
 
 
 ## List users page
 @app.route('/listusers')
 def listusers():
+    title = 'Listuser'
     formatted_date, day, now = get_date_and_day()
     userlist, names, rolls, l = getallusers()
-    return render_template('listusers.html', userlist=userlist, names=names, rolls=rolls, l=l, totalreg=totalreg(), datetoday2=formatted_date, day=day, now=now)
+    return render_template('listusers.html', userlist=userlist, names=names, rolls=rolls, l=l, totalreg=totalreg(), datetoday2=formatted_date, day=day, now=now,title = title)
 
 
 ## Delete functionality
 @app.route('/deleteuser', methods=['GET'])
 def deleteuser():
+    title='Hapususer'
     duser = request.args.get('user')
-    deletefolder('static/faces/'+duser)
+    deletefolder('static/faces/'+duser,title=title)
     
 
     ## if all the face are deleted, delete the trained file...

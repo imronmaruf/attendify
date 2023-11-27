@@ -6,8 +6,13 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link
+      rel="stylesheet"
+      href="../static/css/style.css" />
+
+    <link
       rel="shortcut icon"
-      href="#" />
+      href="../static/images/favicon.png"
+      type="image" />
 
     <meta
       name="description"
@@ -53,56 +58,10 @@
       rel="stylesheet"
       href="../static/css/style.css" />
 
-    <title>Learner Free Bootstrap Template by Untree.co</title>
-
-    <!-- Additional styles -->
-    <style>
-      /* Your existing styles */
-      * {
-        padding: 0;
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      body {
-        background-image: url("https://cutewallpaper.org/27/background-wallpaper-gifs/animated-gif-wallpaper-paper-use-share-or-download-cool-wallpaper-gif-42212-hd-wallpaper-backgrounds-download.png");
-        background-size: cover;
-        font-family: sans-serif;
-        margin-top: 40px;
-        height: 100vh;
-        padding: 0;
-        margin: 0;
-      }
-
-      table {
-        border: 1px;
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 86%;
-        margin: auto;
-      }
-
-      td,
-      th {
-        border: 1px solid black !important;
-        padding: 5px;
-      }
-
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-    </style>
+    <title>{{title}}</title>
   </head>
 
   <body>
-    <div class="site-mobile-menu">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
-          <span class="icofont-close js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div>
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
@@ -124,9 +83,8 @@
 
             <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
               <li class="active"><a href="/">Home</a></li>
-
               <li><a href="/tim">Our Team</a></li>
-              <li><a href="/dashboard">Dashboard</a></li>
+              <!-- <li><a href="/dashboard">Dashboard</a></li> -->
               <li><a href="/listusers">List User</a></li>
             </ul>
 
@@ -147,6 +105,7 @@
         </div>
       </div>
     </nav>
+
     <div
       class="untree_co-hero overlay"
       style="background-image: url('../static/images/hero-bg.jpg')">
@@ -167,7 +126,16 @@
                     data-aos-delay="0"
                     class="caption d-inline-block"
                     >Tanggal: {{datetoday2}}</a
-                  >
+                  ><br />
+
+                  <p
+                    href="#"
+                    data-fancybox
+                    data-aos="fade-up"
+                    data-aos-delay="0"
+                    class="caption d-inline-block">
+                    Waktu: {{now}}
+                  </p>
                   <br />
 
                   <a
@@ -176,18 +144,8 @@
                     data-aos="fade-up"
                     data-aos-delay="0"
                     class="caption d-inline-block"
-                    >Waktu: {{now}}</a
-                  >
-                  <br />
-                  <a
-                    href="#"
-                    data-fancybox
-                    data-aos="fade-up"
-                    data-aos-delay="0"
-                    class="caption d-inline-block"
                     >Hari: {{day}}</a
-                  >
-                  <br />
+                  ><br />
                 </div>
 
                 {% if mess %}
@@ -197,101 +155,116 @@
                   {{ mess }}
                 </p>
                 {% endif %}
+                <div class="container mt-4">
+                  <div class="row">
+                    <!-- Card Tabel Absensi (Sebelah Kiri) -->
+                    <div class="col-lg-8 flex-column">
+                      <div class="card-fancy">
+                        <div class="card-title">
+                          <h5>Tabel Absensi</h5>
+                        </div>
 
-                <div
-                  class="row text-center"
-                  style="padding: 20px; margin: 20px">
-                  <div
-                    class="col"
-                    style="
-                      border-radius: 20px;
-                      padding: 0px;
-                      background-color: rgb(211, 211, 211, 0.5);
-                      margin: 0px 10px 10px 10px;
-                      min-height: 400px;
-                    ">
-                    <h2 style="border-radius: 20px 20px 0px 0px; background-color: #0b4c61; color: white; padding: 10px">
-                      Tabel Absensi<i class="material-icons"></i>
-                    </h2>
-                    <a
-                      style="text-decoration: none; max-width: 300px"
-                      href="/start">
-                      <button
-                        style="
-                          font-size: 24px;
-                          font-weight: bold;
-                          border-radius: 10px;
-                          width: 490px;
-                          padding: 10px;
-                          margin-top: 30px;
-                          margin-bottom: 30px;
-                        "
-                        type="submit"
-                        class="btn btn-primary">
-                        Absen Sekarang<i class="material-icons"></i>
-                      </button>
-                    </a>
-                    <table style="background-color: white">
-                      <tr>
-                        <td><b>No</b></td>
-                        <td><b>Name</b></td>
-                        <td><b>ID</b></td>
-                        <td><b>Time</b></td>
-                      </tr>
-                      {% if l %} {% for i in range(l) %}
-                      <tr>
-                        <td>{{ i+1 }}</td>
-                        <td>{{ names[i] }}</td>
-                        <td>{{ rolls[i] }}</td>
-                        <td>{{ times[i] }}</td>
-                      </tr>
-                      {% endfor %} {% endif %}
-                    </table>
-                  </div>
+                        <div class="col-8 d-flex justify-content-center">
+                          <a
+                            href="/start"
+                            class="mr-2">
+                            <button
+                              type="submit"
+                              class="btn btn-outline-secondary mt-3">
+                              <i class="fa-solid fa-rectangle-list"></i> <span> Absen Sekarang</span>
+                            </button>
+                          </a>
+                          <a href="/listusers">
+                            <button class="btn btn-outline-info mt-3">
+                              <i class="fa-solid fa-clipboard-user"></i> <span>List User</span>
+                            </button>
+                          </a>
+                        </div>
 
-                  <div
-                    class="col"
-                    style="
-                      border-radius: 20px;
-                      padding: 0px;
-                      background-color: rgb(211, 211, 211, 0.5);
-                      margin: 0px 10px 10px 10px;
-                      height: 400px;
-                    ">
-                    <form
-                      action="/add"
-                      method="POST"
-                      enctype="multipart/form-data">
-                      <h2 style="border-radius: 20px 20px 0px 0px; background-color: #0b4c61; color: white; padding: 10px">
-                        Untuk User Baru<i class="material-icons"></i>
-                      </h2>
-                      <label style="font-size: 20px"><b>Masukkan Nama</b></label>
-                      <br />
-                      <input
-                        type="text"
-                        id="newusername"
-                        name="newusername"
-                        style="font-size: 20px; margin-top: 10px; margin-bottom: 10px"
-                        required />
-                      <br />
-                      <label style="font-size: 20px"><b>Masukkan Id</b></label>
-                      <br />
-                      <input
-                        type="number"
-                        id="newusereid"
-                        name="newuserid"
-                        style="font-size: 20px; margin-top: 10px; margin-bottom: 10px"
-                        required />
-                      <br />
-                      <button
-                        style="width: 232px; margin-top: 20px; font-size: 20px"
-                        type="submit"
-                        class="btn btn-dark">
-                        Tambahkan
-                      </button>
-                      <br />
-                      <h5 style="padding: 25px"><i>Total Users in Database: {{totalreg}}</i></h5>
-                    </form>
+                        <div class="col-lg-12 card-body">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">No.</th>
+                                  <th scope="col">Nama</th>
+                                  <th scope="col">Id</th>
+                                  <th scope="col">Waktu Absensi</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% if l %} {% for i in range(l) %}
+                                <tr>
+                                  <td>{{ i+1 }}</td>
+                                  <td>{{ names[i] }}</td>
+                                  <td>{{ rolls[i] }}</td>
+                                  <td>{{ times[i] }}</td>
+                                </tr>
+                                {% endfor %} {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Card Tabel Tambah User (Sebelah Kanan) -->
+                    <div class="col-lg-4">
+                      <div class="card-fancy">
+                        <div class="card-title">
+                          <h5>Table Tambah User</h5>
+                        </div>
+
+                        <div class="card-body">
+                          <form
+                            action="/add"
+                            method="POST"
+                            enctype="multipart/form-data">
+                            <div class="mb-3">
+                              <label
+                                for="newusername"
+                                class="form-label-group text-black"
+                                >Masukkan Nama</label
+                              >
+                              <div class="input-group">
+                                <input
+                                  type="text"
+                                  id="newusername"
+                                  name="newusername"
+                                  class="form-control"
+                                  placeholder="Nama anda"
+                                  required />
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label
+                                for="newuserid"
+                                class="form-label-group text-black"
+                                >Masukkan Id</label
+                              >
+                              <div class="input-group">
+                                <input
+                                  type="number"
+                                  id="newuserid"
+                                  name="newuserid"
+                                  class="form-control"
+                                  placeholder="User Id"
+                                  required />
+                              </div>
+                            </div>
+
+                            <button
+                              type="submit"
+                              class="btn btn-outline-success btn-md mb-2">
+                              <i class="fa-solid fa-square-plus"></i><span> Tambahkan</span>
+                            </button>
+
+                            <p class="text-black"><i>Total Users in Database: {{totalreg}}</i></p>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
