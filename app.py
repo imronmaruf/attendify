@@ -13,7 +13,7 @@ import csv
 from PIL import Image
 
 
-# Defining Flask App
+# Define flask
 app = Flask(__name__)
 
 @app.route('/')
@@ -42,7 +42,7 @@ datetoday2 = date.today().strftime("%d-%B-%Y")
 face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
-# 
+#  Fungsi membuat Direktori/folder faces untuk pelatihan wajah sesuai dengan nama dan id
 if not os.path.isdir('Attendance'):
     os.makedirs('Attendance')
 if not os.path.isdir('static'):
@@ -63,12 +63,12 @@ def get_date_and_day():
     now = today.strftime("%H:%M:%S")
     return formatted_date, day, now
 
-# get a number of total registered users
+# Ambil data jumlah User
 def totalreg():
     return len(os.listdir('static/faces'))
 
 
-# 
+#  Scan wajah Model 
 def extract_faces(img):
     try:
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -84,7 +84,7 @@ def identify_face(facearray):
     return model.predict(facearray)
 
 
-#
+# Melatih Model
 def train_model():
     faces = []
     labels = []
@@ -100,10 +100,9 @@ def train_model():
     knn.fit(faces, labels)
     joblib.dump(knn, 'static/face_recognition_model.pkl')
 
-#
 CSV_FILE = 'userlist.csv'
 
-#
+# membuat file .csv dan menampilkan data absensi user
 def extract_attendance():
     df = pd.read_csv(f'Attendance/Attendance-{datetoday}.csv')
     names = df['Name']
@@ -113,7 +112,7 @@ def extract_attendance():
     return names, rolls, times, l
 
 
-# 
+# Fungsi untuk absensi
 def add_attendance(name):
     username = name.split('_')[0]
     userid = name.split('_')[1]
@@ -126,7 +125,7 @@ def add_attendance(name):
             f.write(f'\n{username},{userid},{current_time}')
 
 
-##
+#Menampilkan semua data user yang ada 
 def getallusers():
     userlist = os.listdir('static/faces')
     names = []
@@ -141,7 +140,7 @@ def getallusers():
     return userlist, names, rolls, l
 
 
-##  
+#Fungsi hapus folder
 def deletefolder(duser):
     pics = os.listdir(duser)
     
@@ -176,7 +175,7 @@ def deletefolder(duser):
 
 ################## ROUTING #########################
 
-# main page
+# halaman absensi
 @app.route('/absen/')
 def absen():
     title = 'Absensi'
@@ -185,7 +184,7 @@ def absen():
     return render_template('absen.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2, now=now, day=day, title=title)
 
 
-## List users page
+## Halaman user list
 @app.route('/listusers')
 def listusers():
     title = 'Listuser'
@@ -194,14 +193,14 @@ def listusers():
     return render_template('listusers.html', userlist=userlist, names=names, rolls=rolls, l=l, totalreg=totalreg(), datetoday2=formatted_date, day=day, now=now,title = title)
 
 
-## Delete functionality
+## function hapus
 @app.route('/deleteuser', methods=['GET'])
 def deleteuser():
     duser = request.args.get('user')
     deletefolder('static/faces/'+duser)
     
 
-    ## if all the face are deleted, delete the trained file...
+    ## jika wajah dihapus, maka menghapus training pada model
     if os.listdir('static/faces/')==[]:
         os.remove('static/face_recognition_model.pkl')
     
@@ -214,7 +213,7 @@ def deleteuser():
     return render_template('listusers.html', userlist=userlist, names=names, rolls=rolls, l=l, totalreg=totalreg(), datetoday2=datetoday2)
 
 
-# Function FR. 
+# Fungsi untuk melakukan absensi dan melakukan face recocnition
 @app.route('/start', methods=['GET'])
 def start():
     names, rolls, times, l = extract_attendance()
